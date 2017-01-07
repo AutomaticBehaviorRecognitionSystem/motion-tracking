@@ -32,9 +32,10 @@ while(True):
         cv2.line(mask, (a,b), (c,d), (0, 255, 0), 2)
         cv2.circle(frame,(a,b), 5, (0, 255, 0), -1)
     img = cv2.add(frame,mask)
-    cv2.imshow('tracker', frame)
+    cv2.imshow('tracker', img)
     k = cv2.waitKey(30) & 0xff
     if k == 27:
         break
     old_gray = frame_gray.copy()
 cv2.destroyAllWindows()
+cap.release()

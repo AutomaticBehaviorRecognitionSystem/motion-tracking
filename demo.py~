@@ -66,7 +66,7 @@ def vis_detections(im, class_name, dets, thresh=0.5):
         f_detected = open('detected.txt', 'w')
         f_detected.write("{} {} {} {}\n".format(*bbox))
         f_detected.close()
-        #break
+        break
 
     ax.set_title(('{} detections with '
                   'p({} | box) >= {:.1f}').format(class_name, class_name,
@@ -104,7 +104,7 @@ def demo(net, image_name, classes, video=False):
            '{:d} object proposals').format(timer.total_time, boxes.shape[0])
 
     # Visualize detections for each class
-    CONF_THRESH = 0.5
+    CONF_THRESH = 0.4
     NMS_THRESH = 0.3
     for cls in classes:
         cls_ind = CLASSES.index(cls)

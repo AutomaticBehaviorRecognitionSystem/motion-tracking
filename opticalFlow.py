@@ -49,7 +49,7 @@ while(1):
 
         cv2.imshow('Main', frame)
 
-        k = 0xFF & cv2.waitKey(5)
+        k = 0xFF & cv2.waitKey(30)
         if k == 27:
             cv2.destroyAllWindows()
             cap.release()
@@ -72,7 +72,7 @@ while(1):
 
         cv2.imshow('Main', frame)
 
-        k = 0xFF & cv2.waitKey(5)
+        k = 0xFF & cv2.waitKey(30)
         if k == 27:
             cv2.destroyAllWindows()
             cap.release()

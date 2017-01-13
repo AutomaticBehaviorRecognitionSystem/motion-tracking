@@ -12,8 +12,8 @@ feature_params = dict(maxCorners=100,
                        minDistance=7,
                        blockSize=7)
 
-path_to_video = "./new_two_sheep/sheep.mp4"
-file_name = "./new_two_sheep/detected"
+path_to_video = "./data/new_two_sheep/sheep.mp4"
+file_name = "./data/new_two_sheep/detected"
 
 list_sheet = []
 frame_count = 0
@@ -21,7 +21,7 @@ frame_count = 0
 cap = cv2.VideoCapture(path_to_video)
 cv2.namedWindow('Tracker')
 
-dir_work = os.listdir("./new_two_sheep")
+dir_work = os.listdir("./data/new_two_sheep")
 count_files = len(dir_work) - 1
 
 class Sheep:

@@ -1,4 +1,5 @@
 import cv2
+import os
 
 #For lucas kanade method
 lk_params = dict(winSize=(15,15),
@@ -20,6 +21,9 @@ frame_count = 0
 cap = cv2.VideoCapture(path_to_video)
 cv2.namedWindow('Tracker')
 
+dir_work = os.listdir("./new_two_sheep")
+count_files = len(dir_work) - 1
+
 class Sheep:
     def __init__(self, list):
         self.coords = list
@@ -37,9 +41,8 @@ def read_coords(n):
         list_sheet.append(s)
     f.close()
 
-while(1):
+while(count_files != 0):
     while(1):
-        print(list_sheet)
         read_coords(frame_count)
         _, frame = cap.read()
         frame_count += 1
@@ -96,7 +99,8 @@ while(1):
 
         cv2.imshow('Tracker', frame)
         if (frame_count %  50 == 0):
-            list_sheet = []
+    #      list_sheet = []
+            count_files -= 1
             break
 
         k = 0xFF & cv2.waitKey(50)

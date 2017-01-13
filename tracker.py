@@ -68,7 +68,7 @@ while(1):
         oldFrameGray = frameGray.copy()
 
         cv2.imshow('Main', frame)
-        s = 0xFF & cv2.waitKey(30)
+        s = 0xFF & cv2.waitKey(50)
         if s == 27:
             cv2.destroyAllWindows()
             cap.release()
@@ -88,6 +88,11 @@ while(1):
             for corner in st.new_corners_updated:
                 cv2.circle(frame, (int(corner[0][0]), int(corner[0][1])), 5, (0, 255, 0))
 
+        # Drawing rectangle
+        for st in list_sheet:
+            x, y, w, h = cv2.boundingRect(st.new_corners_updated)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
         oldFrameGray = frameGray.copy()
 
         for st in list_sheet:
@@ -95,7 +100,7 @@ while(1):
 
         cv2.imshow('Main', frame)
 
-        k = 0xFF & cv2.waitKey(30)
+        k = 0xFF & cv2.waitKey(50)
         if k == 27:
             cv2.destroyAllWindows()
             cap.release()

@@ -1,7 +1,5 @@
 import cv2
 
-#PRESS S TO START TRACKING
-
 #For lucas kanade method
 lk_params = dict(winSize=(15,15),
                   maxLevel=2,
@@ -13,13 +11,14 @@ feature_params = dict(maxCorners=100,
                        minDistance=7,
                        blockSize=7)
 
-path_to_video = "./two_sheep.mp4"
-file_name = "detected_two_sheep.txt"
+path_to_video = "./new_two_sheep/sheep.mp4"
+file_name = "./new_two_sheep/detected"
 
 list_sheet = []
+frame_count = 0
 
 cap = cv2.VideoCapture(path_to_video)
-cv2.namedWindow('Main')
+cv2.namedWindow('Tracker')
 
 class Sheep:
     def __init__(self, list):
@@ -29,8 +28,8 @@ class Sheep:
         self.old_corners = []
         self.new_corners_updated = []
 
-def read_coords():
-    f = open(file_name, 'r')
+def read_coords(n):
+    f = open(file_name + str(n) + ".txt", 'r')
     for line in f.readlines():
         coords = line.split(' ')
         coords = [coord.rstrip() for coord in coords]
@@ -38,11 +37,12 @@ def read_coords():
         list_sheet.append(s)
     f.close()
 
-read_coords()
-
 while(1):
     while(1):
+        print(list_sheet)
+        read_coords(frame_count)
         _, frame = cap.read()
+        frame_count += 1
         for st in list_sheet:
             cv2.rectangle(frame, (int(float(st.coords[0])), int(float(st.coords[1]))),
                           (int(float(st.coords[2])), int(float(st.coords[3]))),
@@ -67,15 +67,11 @@ while(1):
 
         oldFrameGray = frameGray.copy()
 
-        cv2.imshow('Main', frame)
-        s = 0xFF & cv2.waitKey(50)
-        if s == 27:
-            cv2.destroyAllWindows()
-            cap.release()
-        elif s == ord('s'):
-            break
+        cv2.imshow('Tracker', frame)
+        break
     while(1):
         ret, frame = cap.read()
+        frame_count += 1
         frameGray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # Optical flow
@@ -98,7 +94,10 @@ while(1):
         for st in list_sheet:
             st.old_corners = st.new_corners_updated.copy()
 
-        cv2.imshow('Main', frame)
+        cv2.imshow('Tracker', frame)
+        if (frame_count %  50 == 0):
+            list_sheet = []
+            break
 
         k = 0xFF & cv2.waitKey(50)
         if k == 27:

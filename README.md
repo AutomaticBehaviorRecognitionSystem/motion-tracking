@@ -1,14 +1,17 @@
 # motion-tracking
 A simple project for motion tracking using opencv. 
 
-###Description
+Description
+-----
 We use [Fast R-CNN] (https://github.com/rbgirshick/fast-rcnn) for recognition sheeps and [opencv] (http://opencv.org/) for tracking.
 
-####Tracking
+Tracking
+------
 * Feature detector (Shi-Tomasi)
 * Optical flow (Pyramidal Lucas Kanade)
 
-###Requirements
+Requirements
+------
 
 * opencv 
 
